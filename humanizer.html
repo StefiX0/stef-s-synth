@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Humanizer | Stepa's Synth</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans min-h-screen text-gray-200">
+
+    <div class="space-background"></div>
+    <div class="stars"></div>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <header class="header-bar p-4 relative flex items-center justify-center shadow-xl h-20">
+
+            <h1 class="text-2xl font-bold text-pink-400 tracking-wider drop-shadow-md absolute left-4 md:left-8">
+                HUMANIZER
+            </h1>
+
+            <a href="index.html" class="glass-button px-8 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:text-white hover:border-white transition-all no-underline flex items-center gap-2">
+                <span></span> Menu
+            </a>
+
+        </header>
+
+        <main class="flex-grow flex flex-col items-center p-8 space-y-8 max-w-5xl mx-auto w-full">
+
+            <div class="glass-panel p-1 rounded-2xl w-full">
+                <div class="glass-panel-inner p-6 rounded-xl">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
+                        <label class="block text-lg font-bold text-pink-400 uppercase">Editor kódu</label>
+                        <select id="style-preset" class="glass-select border-pink-500/30 hover:border-pink-400" style="background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f472b6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e&quot;);">
+                            <option value="cpp"> C++ (Styl: PascalCase + Allman)</option>
+                            <option value="c"> Jazyk C (Styl: snake_case + K&R)</option>
+                            <option value="csharp"> C# (Styl: Microsoft Standard)</option>
+                            <option value="python"> Python (Styl: PEP8)</option>
+                            <option value="javascript"> JavaScript (Styl: Modern ES6+)</option>
+                            <option value="css"> CSS (Styl: BEM / Clean)</option>
+                            <option value="html"> HTML (Styl: Semantic + Indentation)</option>
+                            <option value="xhtml"> XHTML (Styl: Strict XML)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-bold text-gray-400 uppercase tracking-wider">Kód k úpravě</label>
+                            <textarea id="style-input-code" placeholder="Vlož kód..." class="glass-textarea w-full h-48 rounded-xl p-4 resize-none font-mono text-sm"></textarea>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-bold text-gray-400 uppercase tracking-wider">Vlastní vzor / Instrukce</label>
+                            <textarea id="style-input-custom" placeholder="Zde vložte vlastní kód jako vzor stylu nebo specifické instrukce..." class="glass-textarea w-full h-48 rounded-xl p-4 resize-none font-mono text-sm"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="runGemini('styling')" id="btn-style-action" class="glass-button action-btn px-12 py-4 rounded-full font-bold text-xl uppercase tracking-widest text-pink-100 hover:text-white border-pink-500/50 hover:border-pink-400">
+                Předělat kód
+            </button>
+
+            <div class="glass-panel p-1 rounded-2xl w-full flex-grow">
+                <div class="glass-panel-inner p-6 rounded-xl min-h-[300px]">
+                    <div class="flex justify-between items-center mb-4">
+                        <label class="block text-lg font-bold text-purple-400 uppercase">Výsledek</label>
+                        <button onclick="copyToClipboard('style-result')" class="glass-button text-xs px-3 py-1 rounded-full">Kopírovat</button>
+                    </div>
+                    <pre><code id="style-result" class="language-javascript rounded-xl block overflow-x-auto h-full text-sm custom-scrollbar"></code></pre>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

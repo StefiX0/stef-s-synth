@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Škola & Věda | Stepa's Synth</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans min-h-screen text-gray-200 overflow-hidden">
+
+    <div class="space-background"></div>
+    <div class="stars"></div>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <header class="header-bar p-4 relative flex items-center justify-center shadow-xl h-20">
+            <h1 class="text-2xl font-bold text-blue-400 tracking-wider drop-shadow-md">
+                MENU
+            </h1>
+            <a href="index.html" class="glass-button px-8 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:text-white hover:border-white transition-all no-underline absolute right-4 md:right-8">
+                Zpět na start
+            </a>
+        </header>
+
+        <main class="flex-grow flex items-center justify-center p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-5xl">
+
+                <a href="explainer.html" class="glass-button main-choice-btn p-12 rounded-3xl flex items-center justify-center text-center group no-underline border-blue-500/30 hover:border-blue-400">
+                    <div>
+                        
+                        <h2 class="text-3xl font-bold text-blue-300 group-hover:text-white transition-all">
+                            Vysvětlovač Kódu
+                        </h2>
+                        <p class="text-sm text-gray-400 mt-2 group-hover:text-gray-200">Chápej logiku cizího kódu.</p>
+                    </div>
+                </a>
+
+                <a href="math.html" class="glass-button main-choice-btn p-12 rounded-3xl flex items-center justify-center text-center group no-underline border-cyan-500/30 hover:border-cyan-400">
+                    <div>
+                        
+                        <h2 class="text-3xl font-bold text-cyan-300 group-hover:text-white transition-all">
+                            Matika & Grafy
+                        </h2>
+                        <p class="text-sm text-gray-400 mt-2 group-hover:text-gray-200">Řešení příkladů + Python grafy.</p>
+                    </div>
+                </a>
+
+                <a href="arduino.html" class="glass-button main-choice-btn p-12 rounded-3xl flex items-center justify-center text-center group no-underline border-orange-500/30 hover:border-orange-400">
+                    <div>
+                        
+                        <h2 class="text-3xl font-bold text-orange-400 group-hover:text-white transition-all">
+                            Arduino & Hardware
+                        </h2>
+                        <p class="text-sm text-gray-400 mt-2 group-hover:text-gray-200">Generátor kódu + Návod na zapojení.</p>
+                    </div>
+                </a>
+
+                <a href="lab.html" class="glass-button main-choice-btn p-12 rounded-3xl flex items-center justify-center text-center group no-underline border-green-500/30 hover:border-green-400">
+                    <div>
+                        
+                        <h2 class="text-3xl font-bold text-green-400 group-hover:text-white transition-all">
+                            Chemie & Elektro
+                        </h2>
+                        <p class="text-sm text-gray-400 mt-2 group-hover:text-gray-200">Vyčíslování rovnic a výpočty obvodů.</p>
+                    </div>
+                </a>
+
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

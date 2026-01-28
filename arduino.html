@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Arduino Studio | Stepa's Synth</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.0.0/dist/markdown-it.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans min-h-screen text-gray-200">
+
+    <div class="space-background"></div>
+    <div class="stars"></div>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <header class="header-bar p-4 relative flex items-center justify-center shadow-xl h-20">
+            <h1 class="text-2xl font-bold text-orange-500 tracking-wider drop-shadow-md absolute left-4 md:left-8">
+                ARDUINO MAKER
+            </h1>
+            <a href="school.html" class="glass-button px-8 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:text-white no-underline">
+                Zpět
+            </a>
+        </header>
+
+        <main class="flex-grow flex flex-col p-6 gap-6 max-w-7xl mx-auto w-full">
+            <div class="glass-panel p-1 rounded-2xl w-full">
+                <div class="glass-panel-inner p-6 rounded-xl">
+                    <label class="block text-lg font-bold text-orange-400 uppercase mb-2">Co chceš sestavit?</label>
+                    <textarea id="arduino-prompt" placeholder="Např: Udělej semafor s 3 LEDkami..." class="glass-textarea w-full h-32 rounded-xl p-4 resize-none"></textarea>
+                </div>
+            </div>
+
+            <button onclick="runGemini('arduino')" id="btn-arduino-action" class="glass-button action-btn w-full py-4 rounded-full font-bold text-xl uppercase tracking-widest text-orange-100 hover:text-white border-orange-500/50 hover:border-orange-400">
+                Sestavit Projekt
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow min-h-[400px]">
+                <div class="glass-panel p-1 rounded-2xl w-full h-full">
+                    <div class="glass-panel-inner p-6 rounded-xl h-full overflow-y-auto custom-scrollbar">
+                        <label class="block text-lg font-bold text-orange-300 uppercase mb-4">Návod na zapojení</label>
+                        <div id="arduino-wiring" class="prose prose-invert max-w-none text-sm">
+                            <p class="text-gray-400 italic">Zde se objeví návod...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel p-1 rounded-2xl w-full h-full flex flex-col">
+                    <div class="glass-panel-inner p-6 rounded-xl h-full flex flex-col overflow-hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <label class="block text-lg font-bold text-blue-400 uppercase">Kód (.ino)</label>
+                            <button onclick="copyToClipboard('arduino-code')" class="glass-button text-xs px-3 py-1 rounded-full">Kopírovat</button>
+                        </div>
+                        <pre class="flex-grow overflow-auto custom-scrollbar mb-0"><code id="arduino-code" class="language-cpp rounded-xl block h-full text-sm">void setup() { ... }</code></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

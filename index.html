@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stepa's Synth | Menu</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans min-h-screen text-gray-200 overflow-hidden">
+
+    <div class="space-background"></div>
+    <div class="stars"></div>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <header class="header-bar p-4 flex flex-col md:flex-row items-center justify-center relative shadow-xl gap-4 md:gap-0">
+            <h1 class="text-3xl font-bold tracking-wider text-white drop-shadow-lg">MENU</h1>
+
+            <div class="glass-button-container flex items-center gap-4 w-full md:w-auto justify-center md:absolute md:right-4">
+                <input type="password" id="apiKey" placeholder="VLOŽ GEMINI API KEY ZDE" class="glass-button api-input px-6 py-2 rounded-full font-bold text-sm text-center w-80 border-2 border-blue-500/50">
+                <a href="https://aistudio.google.com/app/api-keys" target="_blank" class="glass-button px-4 py-2 rounded-full font-bold text-sm text-center border-2 border-blue-500/50 hover:bg-blue-500/20 no-underline">API Gen</a>
+            </div>
+        </header>
+
+        <main class="flex-grow flex items-center justify-center p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
+
+                <a href="generator.html" class="glass-button main-choice-btn p-10 rounded-3xl flex items-center justify-center text-center group no-underline">
+                    <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 group-hover:text-white transition-all">
+                        Generace kódu
+                    </h2>
+                </a>
+
+                <a href="humanizer.html" class="glass-button main-choice-btn p-10 rounded-3xl flex items-center justify-center text-center group no-underline">
+                    <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 group-hover:text-white transition-all">
+                        Stylizace & Humanizer
+                    </h2>
+                </a>
+
+                <a href="vision.html" class="glass-button main-choice-btn p-10 rounded-3xl flex items-center justify-center text-center group no-underline">
+                    <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400 group-hover:text-white transition-all">
+                        Vision Coder
+                    </h2>
+                </a>
+
+                <a href="school.html" class="glass-button main-choice-btn p-10 rounded-3xl flex items-center justify-center text-center group no-underline">
+                    <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 group-hover:text-white transition-all">
+                        ŠKOLA & VĚDA
+                    </h2>
+                </a>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

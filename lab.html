@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratoř | Stepa's Synth</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.0.0/dist/markdown-it.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans min-h-screen text-gray-200">
+
+    <div class="space-background"></div>
+    <div class="stars"></div>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+        <header class="header-bar p-4 relative flex items-center justify-center shadow-xl h-20">
+            <h1 class="text-2xl font-bold text-green-500 tracking-wider drop-shadow-md absolute left-4 md:left-8">
+                LABORATOŘ
+            </h1>
+            <a href="school.html" class="glass-button px-8 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:text-white no-underline">
+                Zpět
+            </a>
+        </header>
+
+        <main class="flex-grow flex flex-col items-center p-8 space-y-8 max-w-5xl mx-auto w-full">
+            <div class="glass-panel p-1 rounded-2xl w-full">
+                <div class="glass-panel-inner p-6 rounded-xl">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
+                        <label class="block text-lg font-bold text-green-400 uppercase">Zadání problému</label>
+                        <select id="lab-mode" class="glass-select border-green-500/30 hover:border-green-400">
+                            <option value="chem">Chemie</option>
+                            <option value="electro">Elektro</option>
+                        </select>
+                    </div>
+                    <textarea id="lab-prompt" placeholder="Např: Vyčísli rovnici H2 + O2 -> H2O..." class="glass-textarea w-full h-40 rounded-xl p-4 resize-none"></textarea>
+                </div>
+            </div>
+
+            <button onclick="runGemini('lab')" id="btn-lab-action" class="glass-button action-btn px-12 py-4 rounded-full font-bold text-xl uppercase tracking-widest text-green-100 hover:text-white border-green-500/50 hover:border-green-400">
+                Analyzovat
+            </button>
+
+            <div class="glass-panel p-1 rounded-2xl w-full flex-grow">
+                <div class="glass-panel-inner p-6 rounded-xl min-h-[300px] overflow-y-auto custom-scrollbar">
+                    <label class="block text-lg font-bold text-green-300 uppercase mb-4">Výsledek analýzy</label>
+                    <div id="lab-result" class="prose prose-invert max-w-none text-sm">
+                        <p class="text-gray-400 italic">Zde se objeví výpočet...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
