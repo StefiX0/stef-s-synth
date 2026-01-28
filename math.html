@@ -20,7 +20,7 @@
     <div class="relative z-10 flex flex-col min-h-screen">
         <header class="header-bar p-4 relative flex items-center justify-center shadow-xl h-20">
             <h1 class="text-2xl font-bold text-cyan-400 tracking-wider drop-shadow-md absolute left-4 md:left-8">
-                MATIKA & GRAFY
+                📐 MATIKA & GRAFY
             </h1>
             <a href="school.html" class="glass-button px-8 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:text-white no-underline">
                 Zpět
@@ -39,7 +39,7 @@
                         <label class="block text-lg font-bold text-cyan-400 uppercase mb-2">Nebo nahraj fotku</label>
                         <input type="file" id="mathImageInput" accept="image/*" class="hidden" onchange="previewMathImage()">
                         <div onclick="document.getElementById('mathImageInput').click()" class="border-2 border-dashed border-cyan-500/30 rounded-xl h-48 cursor-pointer hover:bg-white/5 transition-all flex flex-col items-center justify-center relative overflow-hidden">
-                            
+                            <span class="text-4xl mb-2">📷</span>
                             <p class="text-sm text-gray-400">Klikni pro nahrání fotky</p>
                             <img id="mathImagePreview" class="absolute inset-0 w-full h-full object-cover opacity-50 hidden">
                         </div>
@@ -54,7 +54,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow min-h-[400px]">
                 <div class="glass-panel p-1 rounded-2xl w-full h-full">
                     <div class="glass-panel-inner p-6 rounded-xl h-full overflow-y-auto custom-scrollbar">
-                        <label class="block text-lg font-bold text-blue-300 uppercase mb-4">Postup řešení</label>
+                        <label class="block text-lg font-bold text-blue-300 uppercase mb-4">📝 Postup řešení</label>
                         <div id="math-text-result" class="prose prose-invert max-w-none text-sm">
                             <p class="text-gray-400 italic">Zde bude postup...</p>
                         </div>
@@ -63,7 +63,7 @@
                 <div class="glass-panel p-1 rounded-2xl w-full h-full flex flex-col">
                     <div class="glass-panel-inner p-6 rounded-xl h-full flex flex-col overflow-hidden">
                         <div class="flex justify-between items-center mb-4">
-                            <label class="block text-lg font-bold text-green-400 uppercase">Python Graf</label>
+                            <label class="block text-lg font-bold text-green-400 uppercase">🐍 Python Graf</label>
                             <button onclick="copyToClipboard('math-code-result')" class="glass-button text-xs px-3 py-1 rounded-full">Kopírovat</button>
                         </div>
                         <pre class="flex-grow overflow-auto custom-scrollbar mb-0"><code id="math-code-result" class="language-python rounded-xl block h-full text-sm"># Kód pro graf</code></pre>

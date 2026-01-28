@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vision Coder | Stepa's Synth</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans min-h-screen text-gray-200">
+
+    <div class="space-background"></div>
+    <div class="stars"></div>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <header class="header-bar p-4 relative flex items-center justify-center shadow-xl h-20">
+            <h1 class="text-2xl font-bold text-green-400 tracking-wider drop-shadow-md absolute left-4 md:left-8">
+                VISION CODER
+            </h1>
+            <a href="index.html" class="glass-button px-8 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:text-white no-underline">
+                🏠 Menu
+            </a>
+        </header>
+
+        <main class="flex-grow flex flex-col items-center p-8 space-y-8 max-w-5xl mx-auto w-full">
+
+            <div class="glass-panel p-1 rounded-2xl w-full">
+                <div class="glass-panel-inner p-6 rounded-xl text-center">
+                    <label class="block text-lg font-bold text-green-400 uppercase mb-4">Nahraj Screenshot nebo Náčrt</label>
+
+                    <input type="file" id="imageInput" accept="image/*" class="hidden" onchange="previewImage()">
+
+                    <div onclick="document.getElementById('imageInput').click()" class="border-2 border-dashed border-green-500/30 rounded-xl p-10 cursor-pointer hover:bg-white/5 transition-all flex flex-col items-center justify-center min-h-[200px]" id="drop-zone">
+                        <span class="text-4xl mb-2">📷</span>
+                        <p class="text-sm text-gray-400">Klikni sem a vyber obrázek</p>
+                        <img id="imagePreview" class="mt-4 max-h-64 rounded-lg hidden shadow-lg border border-white/20">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="runGemini('vision')" id="btn-vision-action" class="glass-button action-btn px-12 py-4 rounded-full font-bold text-xl uppercase tracking-widest text-green-100 hover:text-white border-green-500/50 hover:border-green-400">
+                👁️ Analyzovat a kódovat
+            </button>
+
+            <div class="glass-panel p-1 rounded-2xl w-full flex-grow">
+                <div class="glass-panel-inner p-6 rounded-xl min-h-[300px]">
+                    <div class="flex justify-between items-center mb-4">
+                        <label class="block text-lg font-bold text-purple-400 uppercase">Vygenerovaný Kód</label>
+                        <button onclick="copyToClipboard('vision-result')" class="glass-button text-xs px-3 py-1 rounded-full">Kopírovat</button>
+                    </div>
+                    <pre><code id="vision-result" class="language-html rounded-xl block overflow-x-auto h-full text-sm custom-scrollbar"></code></pre>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        function previewImage() {
+            const file = document.getElementById('imageInput').files[0];
+            const preview = document.getElementById('imagePreview');
+            const dropText = document.querySelector('#drop-zone p');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    dropText.textContent = "Vybráno: " + file.name;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+
+</html>

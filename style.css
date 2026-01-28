@@ -1,0 +1,130 @@
+/* =========================================
+   1. POZADÍ A ZÁKLADNÍ NASTAVENÍ
+   ========================================= */
+
+body {
+    background-color: #050505;
+    /* Černá záloha, kdyby se nenačetl obrázek */
+    color: #e2e8f0;
+}
+
+
+/* Vesmírné pozadí s animovaným gradientem */
+
+.space-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    /* Fialová -> Tmavě modrá -> Černá */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* Hvězdy (statické tečky) */
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px), radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px);
+    background-size: 550px 550px, 350px 350px;
+    background-position: 0 0, 40px 60px;
+    opacity: 0.4;
+}
+
+
+/* =========================================
+   2. HLAVIČKA A NAVIGACE
+   ========================================= */
+
+.header-bar {
+    background: rgba(20, 30, 48, 0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 50;
+}
+
+
+/* =========================================
+   3. SKLENĚNÁ TLAČÍTKA (GLASSMORPHISM)
+   ========================================= */
+
+.glass-button {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+/* Hover efekt - Neonová záře */
+
+.glass-button:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4), /* Zelená */
+    0 0 30px rgba(0, 184, 255, 0.3);
+    /* Modrá */
+}
+
+
+/* Velká tlačítka v menu */
+
+.main-choice-btn {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+}
+
+.main-choice-btn:hover {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: #fff;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+    /* Cyan glow */
+}
+
+
+/* Input pro API klíč */
+
+.api-input:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0.5);
+    border-color: #3b82f6;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+
+/* Zelená záře, když je klíč uložen */
+
+.key-saved {
+    border-color: #4ade80 !important;
+    /* Green-400 */
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.6) !important;
+    color: #4ade80 !important;
+}
