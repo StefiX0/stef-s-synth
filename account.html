@@ -14,7 +14,6 @@
 
     <div class="relative z-10 flex flex-col min-h-screen">
         
-        <!-- Header -->
         <header class="header-bar p-4 relative flex items-center justify-center shadow-xl h-20">
             <h1 class="text-2xl font-bold text-blue-400 tracking-wider absolute left-8">NASTAVENÍ ÚČTU</h1>
             <a href="index.html" class="glass-button px-8 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:text-white no-underline">
@@ -29,14 +28,24 @@
                 <!-- ID Karta -->
                 <div class="glass-panel p-1 rounded-3xl">
                     <div class="glass-panel-inner p-8 rounded-3xl flex flex-col items-center text-center">
-                        <div class="w-32 h-32 rounded-full bg-blue-500/10 border-2 border-blue-500/50 flex items-center justify-center text-5xl mb-4 relative shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-                            👤
-                            <!-- Online status dot -->
+                        <div class="w-32 h-32 rounded-full bg-blue-500/10 border-2 border-blue-500/50 flex items-center justify-center text-2xl font-bold text-blue-300 mb-4 relative shadow-[0_0_20px_rgba(59,130,246,0.3)] tracking-widest">
+                            USR
                             <span class="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-green-500 border-4 border-[#0a0a0f] shadow-[0_0_10px_#22c55e]"></span>
                         </div>
                         <h2 id="acc-username" class="text-3xl font-bold text-white tracking-widest mb-1">USER_NAME</h2>
                         <p class="text-green-400 font-bold text-sm tracking-wider">STATUS: ONLINE</p>
                         
+                        <!-- Změna jména -->
+                        <div class="mt-8 pt-6 border-t border-white/10 w-full text-left">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Změnit přezdívku</label>
+                            <div class="flex gap-4">
+                                <input type="text" id="new-username-input" placeholder="Nové jméno..." class="glass-textarea w-full rounded-xl p-3 text-sm">
+                                <button onclick="changeUsername()" class="glass-button px-6 rounded-xl font-bold text-xs uppercase tracking-widest text-blue-400 hover:text-white border-blue-500/30 hover:border-blue-500">
+                                    Uložit
+                                </button>
+                            </div>
+                        </div>
+
                         <button onclick="handleLogout()" class="glass-button w-full py-3 rounded-full font-bold text-xs uppercase tracking-widest text-red-400 border-red-500/30 hover:border-red-500 hover:text-white mt-8">
                             Odhlásit se
                         </button>
@@ -48,18 +57,16 @@
                     <div class="glass-panel-inner p-8 rounded-3xl flex flex-col gap-6">
                         <h3 class="text-xl font-bold text-blue-400 uppercase tracking-widest border-b border-white/10 pb-4">Systémová konfigurace</h3>
                         
-                        <!-- Zde jsme přesunuli API klíč -->
                         <div>
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Gemini AI Engine Key</label>
                             <input type="password" id="apiKey" placeholder="Vlož svůj tajný API klíč..." class="glass-textarea api-input w-full rounded-xl p-3 text-sm">
                             <p class="text-xs text-gray-500 mt-2">Klíč se automaticky ukládá (Stiskni Enter pro potvrzení).</p>
                         </div>
 
-                        <!-- Cloud Storage (Příprava pro budoucnost) -->
                         <div class="mt-4">
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Cloudové Úložiště (Projekty)</label>
-                            <button class="glass-button w-full py-3 rounded-xl text-sm flex items-center justify-center gap-3 border-white/10 opacity-50 cursor-not-allowed" disabled>
-                                <span>☁️</span> Připojit Google Drive (Brzy)
+                            <button class="glass-button w-full py-3 rounded-xl text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-3 border-white/10 opacity-50 cursor-not-allowed" disabled>
+                                Připojit Google Drive (Brzy)
                             </button>
                         </div>
                     </div>
@@ -71,18 +78,32 @@
 
     <script src="script.js"></script>
     <script>
-        // Načtení jména
         document.addEventListener('DOMContentLoaded', () => {
             const user = localStorage.getItem('SYNTH_USERNAME');
             if (user) {
                 document.getElementById('acc-username').innerText = user;
             } else {
-                window.location.href = 'login.html'; // Pokud není přihlášen, vyhodíme ho na login
+                window.location.href = 'login.html'; 
             }
         });
 
+        // Funkce pro změnu jména
+        function changeUsername() {
+            const newName = document.getElementById('new-username-input').value.trim();
+            if (newName.length < 2) {
+                alert("Jméno musí mít aspoň 2 znaky.");
+                return;
+            }
+            
+            // Uložíme nové jméno do paměti a upravíme ho rovnou na obrazovce
+            localStorage.setItem('SYNTH_USERNAME', newName);
+            document.getElementById('acc-username').innerText = newName;
+            document.getElementById('new-username-input').value = '';
+        }
+
         function handleLogout() {
-            localStorage.removeItem('SYNTH_USERNAME');
+            // Při odhlášení můžeme (ale nemusíme) smazat jméno
+            // localStorage.removeItem('SYNTH_USERNAME');
             window.location.href = 'login.html';
         }
     </script>
