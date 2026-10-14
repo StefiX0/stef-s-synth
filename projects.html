@@ -252,7 +252,8 @@
 
         // Připraveno pro další krok
         function openProjectDetail(projectId) {
-            alert("Otevírám detaily projektu: " + projectId + "\nSem napojíme project-detail.html");
+    window.location.href = 'project-detail.html?id=' + projectId;
+}
         }
     </script>
 </body>
