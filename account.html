@@ -13,7 +13,6 @@
     <div class="stars"></div>
 
     <div class="relative z-10 flex flex-col min-h-screen">
-        
         <header class="header-bar p-4 relative flex items-center justify-center shadow-xl h-20">
             <h1 class="text-2xl font-bold text-blue-400 tracking-wider absolute left-8">NASTAVENÍ ÚČTU</h1>
             <a href="index.html" class="glass-button px-8 py-2 rounded-full font-bold uppercase tracking-widest text-sm hover:text-white no-underline">
@@ -22,7 +21,6 @@
         </header>
 
         <main class="flex-grow flex items-center justify-center p-6 w-full max-w-4xl mx-auto">
-            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
                 
                 <!-- ID Karta -->
@@ -32,21 +30,20 @@
                             USR
                             <span class="absolute bottom-2 right-2 w-6 h-6 rounded-full bg-green-500 border-4 border-[#0a0a0f] shadow-[0_0_10px_#22c55e]"></span>
                         </div>
-                        <h2 id="acc-username" class="text-3xl font-bold text-white tracking-widest mb-1">USER_NAME</h2>
+                        <h2 id="acc-username" class="text-3xl font-bold text-white tracking-widest mb-1">NAČÍTÁNÍ...</h2>
                         <p class="text-green-400 font-bold text-sm tracking-wider">STATUS: ONLINE</p>
                         
-                        <!-- Změna jména -->
                         <div class="mt-8 pt-6 border-t border-white/10 w-full text-left">
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Změnit přezdívku</label>
                             <div class="flex gap-4">
                                 <input type="text" id="new-username-input" placeholder="Nové jméno..." class="glass-textarea w-full rounded-xl p-3 text-sm">
-                                <button onclick="changeUsername()" class="glass-button px-6 rounded-xl font-bold text-xs uppercase tracking-widest text-blue-400 hover:text-white border-blue-500/30 hover:border-blue-500">
+                                <button id="btn-save-name" class="glass-button px-6 rounded-xl font-bold text-xs uppercase tracking-widest text-blue-400 hover:text-white border-blue-500/30 hover:border-blue-500">
                                     Uložit
                                 </button>
                             </div>
                         </div>
 
-                        <button onclick="handleLogout()" class="glass-button w-full py-3 rounded-full font-bold text-xs uppercase tracking-widest text-red-400 border-red-500/30 hover:border-red-500 hover:text-white mt-8">
+                        <button id="btn-logout" class="glass-button w-full py-3 rounded-full font-bold text-xs uppercase tracking-widest text-red-400 border-red-500/30 hover:border-red-500 hover:text-white mt-8">
                             Odhlásit se
                         </button>
                     </div>
@@ -58,54 +55,102 @@
                         <h3 class="text-xl font-bold text-blue-400 uppercase tracking-widest border-b border-white/10 pb-4">Systémová konfigurace</h3>
                         
                         <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Gemini AI Engine Key</label>
-                            <input type="password" id="apiKey" placeholder="Vlož svůj tajný API klíč..." class="glass-textarea api-input w-full rounded-xl p-3 text-sm">
-                            <p class="text-xs text-gray-500 mt-2">Klíč se automaticky ukládá (Stiskni Enter pro potvrzení).</p>
+                            <div class="flex justify-between items-end mb-2">
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest">Gemini AI Engine Key</label>
+                                <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-[10px] font-bold text-blue-400 hover:text-blue-300 uppercase tracking-widest transition-colors">
+                                    Získat klíč ↗
+                                </a>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <input type="password" id="apiKey" placeholder="Vlož svůj tajný API klíč..." class="glass-textarea api-input w-full rounded-xl p-3 text-sm">
+                                <button id="btn-save-api" class="glass-button w-full py-2 rounded-xl font-bold text-xs uppercase tracking-widest text-green-400 border-green-500/30 hover:border-green-500 hover:text-white">
+                                    Uložit klíč do cloudu
+                                </button>
+                            </div>
                         </div>
 
                         <div class="mt-4">
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Cloudové Úložiště (Projekty)</label>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Cloudové Úložiště</label>
                             <button class="glass-button w-full py-3 rounded-xl text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-3 border-white/10 opacity-50 cursor-not-allowed" disabled>
                                 Připojit Google Drive (Brzy)
                             </button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
 
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const user = localStorage.getItem('SYNTH_USERNAME');
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDknPhhEs5zKT4gNQsLpRnK24Twgj_ZHQ4",
+            authDomain: "stepasynthx.firebaseapp.com",
+            projectId: "stepasynthx",
+            storageBucket: "stepasynthx.firebasestorage.app",
+            messagingSenderId: "339372657",
+            appId: "1:339372657:web:0d183c351d7aad2ed849d0",
+            measurementId: "G-PD5NCZG9YH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUserUid = null;
+
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById('acc-username').innerText = user;
+                currentUserUid = user.uid;
+                document.getElementById('acc-username').innerText = localStorage.getItem('SYNTH_USERNAME') || "Uživatel";
+                
+                const savedKey = localStorage.getItem('SYNTH_API_KEY');
+                if (savedKey) document.getElementById('apiKey').value = savedKey;
             } else {
-                window.location.href = 'login.html'; 
+                window.location.href = 'login.html';
             }
         });
 
-        // Funkce pro změnu jména
-        function changeUsername() {
+        document.getElementById('btn-save-name').addEventListener('click', async () => {
+            if (!currentUserUid) return;
             const newName = document.getElementById('new-username-input').value.trim();
-            if (newName.length < 2) {
-                alert("Jméno musí mít aspoň 2 znaky.");
-                return;
-            }
+            if (newName.length < 2) return alert("Jméno musí mít aspoň 2 znaky.");
             
-            // Uložíme nové jméno do paměti a upravíme ho rovnou na obrazovce
-            localStorage.setItem('SYNTH_USERNAME', newName);
-            document.getElementById('acc-username').innerText = newName;
-            document.getElementById('new-username-input').value = '';
-        }
+            try {
+                await setDoc(doc(db, "users", currentUserUid), { username: newName }, { merge: true });
+                localStorage.setItem('SYNTH_USERNAME', newName);
+                document.getElementById('acc-username').innerText = newName;
+                document.getElementById('new-username-input').value = '';
+                alert("Jméno uloženo do cloudu!");
+            } catch (error) {
+                alert("Chyba při ukládání: " + error.message);
+            }
+        });
 
-        function handleLogout() {
-            // Při odhlášení můžeme (ale nemusíme) smazat jméno
-            // localStorage.removeItem('SYNTH_USERNAME');
-            window.location.href = 'login.html';
-        }
+        document.getElementById('btn-save-api').addEventListener('click', async () => {
+            if (!currentUserUid) return;
+            const apiKey = document.getElementById('apiKey').value.trim();
+            if (!apiKey) return alert("Klíč je prázdný.");
+            
+            try {
+                await setDoc(doc(db, "users", currentUserUid), { apiKey: apiKey }, { merge: true });
+                localStorage.setItem('SYNTH_API_KEY', apiKey);
+                alert("API klíč bezpečně uložen do cloudu!");
+            } catch (error) {
+                alert("Chyba při ukládání klíče: " + error.message);
+            }
+        });
+
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                localStorage.removeItem('SYNTH_USERNAME');
+                localStorage.removeItem('SYNTH_API_KEY');
+                window.location.href = 'login.html';
+            });
+        });
     </script>
 </body>
 </html>
