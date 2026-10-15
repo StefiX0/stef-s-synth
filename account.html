@@ -83,7 +83,7 @@
         </main>
     </div>
 
-    <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -104,18 +104,37 @@
 
         let currentUserUid = null;
 
-        onAuthStateChanged(auth, (user) => {
+        // Kontrola přihlášení a okamžité stažení dat z Cloudu
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUserUid = user.uid;
-                document.getElementById('acc-username').innerText = localStorage.getItem('SYNTH_USERNAME') || "Uživatel";
                 
+                // 1. Zkusíme stáhnout čerstvá data přímo z cloudu (Firestore)
+                try {
+                    const userDocRef = doc(db, "users", user.uid);
+                    const userDoc = await getDoc(userDocRef);
+                    
+                    if (userDoc.exists()) {
+                        const cloudData = userDoc.data();
+                        // Uložíme stažená data do mobilu/PC
+                        if (cloudData.username) localStorage.setItem('SYNTH_USERNAME', cloudData.username);
+                        if (cloudData.apiKey) localStorage.setItem('SYNTH_API_KEY', cloudData.apiKey);
+                    }
+                } catch (error) {
+                    console.error("Chyba při stahování profilu z cloudu:", error);
+                }
+
+                // 2. Vykreslíme data na obrazovku
+                document.getElementById('acc-username').innerText = localStorage.getItem('SYNTH_USERNAME') || "Uživatel";
                 const savedKey = localStorage.getItem('SYNTH_API_KEY');
                 if (savedKey) document.getElementById('apiKey').value = savedKey;
+
             } else {
                 window.location.href = 'login.html';
             }
         });
 
+        // Tlačítko: Uložit jméno do cloudu
         document.getElementById('btn-save-name').addEventListener('click', async () => {
             if (!currentUserUid) return;
             const newName = document.getElementById('new-username-input').value.trim();
@@ -132,6 +151,7 @@
             }
         });
 
+        // Tlačítko: Uložit API klíč do cloudu
         document.getElementById('btn-save-api').addEventListener('click', async () => {
             if (!currentUserUid) return;
             const apiKey = document.getElementById('apiKey').value.trim();
@@ -146,6 +166,7 @@
             }
         });
 
+        // Odhlášení
         document.getElementById('btn-logout').addEventListener('click', () => {
             signOut(auth).then(() => {
                 localStorage.removeItem('SYNTH_USERNAME');
